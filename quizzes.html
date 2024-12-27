@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Quizzes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,25 +37,22 @@
             border-radius: 5px;
             text-align: left;
         }
-        .question {
-            margin-bottom: 20px;
-        }
-        .options {
-            list-style-type: none;
-            padding: 0;
-        }
-        .options li {
-            margin-bottom: 10px;
+        .buttons {
+            margin: 20px;
         }
         .btn {
             background-color: #333;
             color: white;
             padding: 10px 20px;
             border: none;
+            margin: 10px;
             cursor: pointer;
         }
         .btn:hover {
             background-color: #575757;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -67,8 +64,13 @@
         <a href="ai.html">AI</a>
         <a href="quizzes.html">Quizzes</a>
     </nav>
-    <h1>Quiz</h1>
-    <div class="quiz-container">
+    <h1>Quizzes</h1>
+    <div class="buttons">
+        <button class="btn" onclick="startQuiz('matematik')">Starta Matematikquiz</button>
+        <button class="btn" onclick="startQuiz('fysik')">Starta Fysikquiz</button>
+        <button class="btn" onclick="startQuiz('ai')">Starta AI-quiz</button>
+    </div>
+    <div class="quiz-container hidden" id="quiz-container">
         <div id="quiz"></div>
         <button class="btn" id="submit">Skicka in</button>
         <p id="result"></p>
