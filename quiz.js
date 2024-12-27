@@ -49,6 +49,8 @@ const resultEl = document.getElementById("result");
 const submitBtn = document.getElementById("submit");
 const quizWrapper = document.getElementById("quiz-container");
 
+let currentQuiz = null; // Store the active quiz
+
 // Load quiz questions
 function loadQuiz(quizData) {
     quizContainer.innerHTML = ""; // Clear previous quiz
@@ -76,6 +78,7 @@ function loadQuiz(quizData) {
 
     // Show the quiz container
     quizWrapper.classList.remove("hidden");
+    currentQuiz = quizData; // Save the active quiz
 }
 
 // Calculate score
@@ -93,24 +96,24 @@ function calculateScore(quizData) {
 }
 
 // Show result
-function showResult(quizData) {
-    const score = calculateScore(quizData);
-    resultEl.innerHTML = `Du fick ${score} av ${quizData.length} rätt!`;
+function showResult() {
+    if (currentQuiz) {
+        const score = calculateScore(currentQuiz);
+        resultEl.innerHTML = `Du fick ${score} av ${currentQuiz.length} rätt!`;
+    } else {
+        resultEl.innerHTML = "Välj ett quiz först!";
+    }
 }
 
 // Start quiz for a specific subject
 function startQuiz(subject) {
     if (quizzes[subject]) {
         loadQuiz(quizzes[subject]);
+        resultEl.innerHTML = ""; // Clear previous results
     } else {
         alert("Det finns inga frågor för detta ämne.");
     }
 }
 
 // Event listener for submit button
-submitBtn.addEventListener("click", () => {
-    const activeSubject = document.querySelector(".question h3") ? "active" : null;
-    if (activeSubject) {
-        showResult(quizzes[activeSubject]);
-    }
-});
+submitBtn.addEventListener("click", showResult);
