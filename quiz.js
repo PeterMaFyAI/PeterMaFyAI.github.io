@@ -43,17 +43,15 @@ const quizzes = {
     ]
 };
 
-// Get subject from URL
-const urlParams = new URLSearchParams(window.location.search);
-const subject = urlParams.get("subject");
-
 // DOM elements
 const quizContainer = document.getElementById("quiz");
-const submitBtn = document.getElementById("submit");
 const resultEl = document.getElementById("result");
+const submitBtn = document.getElementById("submit");
+const quizWrapper = document.getElementById("quiz-container");
 
 // Load quiz questions
 function loadQuiz(quizData) {
+    quizContainer.innerHTML = ""; // Clear previous quiz
     quizData.forEach((data, index) => {
         const questionEl = document.createElement("div");
         questionEl.classList.add("question");
@@ -75,6 +73,9 @@ function loadQuiz(quizData) {
         questionEl.appendChild(optionsList);
         quizContainer.appendChild(questionEl);
     });
+
+    // Show the quiz container
+    quizWrapper.classList.remove("hidden");
 }
 
 // Calculate score
@@ -97,16 +98,19 @@ function showResult(quizData) {
     resultEl.innerHTML = `Du fick ${score} av ${quizData.length} rätt!`;
 }
 
-// Load the selected quiz
-if (quizzes[subject]) {
-    loadQuiz(quizzes[subject]);
-} else {
-    quizContainer.innerHTML = "<p>Ingen quiz hittades för detta ämne.</p>";
+// Start quiz for a specific subject
+function startQuiz(subject) {
+    if (quizzes[subject]) {
+        loadQuiz(quizzes[subject]);
+    } else {
+        alert("Det finns inga frågor för detta ämne.");
+    }
 }
 
-// Event listener
+// Event listener for submit button
 submitBtn.addEventListener("click", () => {
-    if (quizzes[subject]) {
-        showResult(quizzes[subject]);
+    const activeSubject = document.querySelector(".question h3") ? "active" : null;
+    if (activeSubject) {
+        showResult(quizzes[activeSubject]);
     }
 });
