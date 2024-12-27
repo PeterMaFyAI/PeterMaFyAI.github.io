@@ -29,6 +29,34 @@
         h1 {
             margin-top: 50px;
         }
+        .quiz-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #575757;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +68,11 @@
         <a href="quizzes.html">Quizzes</a>
     </nav>
     <h1>Matematikquiz</h1>
-    <p>Den här sidan kommer snart innehålla ett spännande quiz om matematik!</p>
+    <div class="quiz-container">
+        <div id="quiz"></div>
+        <button class="btn" id="submit">Skicka in</button>
+        <p id="result"></p>
+    </div>
+    <script src="quiz.js"></script>
 </body>
 </html>
