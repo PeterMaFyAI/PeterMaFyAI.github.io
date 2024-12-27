@@ -81,6 +81,32 @@ function loadQuiz(quizData) {
     currentQuiz = quizData; // Save the active quiz
 }
 
+// Mark answers as correct or incorrect
+function markAnswers(quizData) {
+    quizData.forEach((data, index) => {
+        const options = document.querySelectorAll(`input[name="question${index}"]`);
+        options.forEach(option => {
+            const parentLabel = option.parentElement;
+            if (option.value === data.correct) {
+                parentLabel.style.color = "green"; // Mark correct answers green
+            } else if (option.checked) {
+                parentLabel.style.color = "red"; // Mark incorrect answers red
+            }
+        });
+    });
+}
+
+// Show result and mark answers
+function showResult() {
+    if (currentQuiz) {
+        const score = calculateScore(currentQuiz);
+        resultEl.innerHTML = `Du fick ${score} av ${currentQuiz.length} rätt!`;
+        markAnswers(currentQuiz);
+    } else {
+        resultEl.innerHTML = "Välj ett quiz först!";
+    }
+}
+
 // Calculate score
 function calculateScore(quizData) {
     let score = 0;
@@ -93,16 +119,6 @@ function calculateScore(quizData) {
     });
 
     return score;
-}
-
-// Show result
-function showResult() {
-    if (currentQuiz) {
-        const score = calculateScore(currentQuiz);
-        resultEl.innerHTML = `Du fick ${score} av ${currentQuiz.length} rätt!`;
-    } else {
-        resultEl.innerHTML = "Välj ett quiz först!";
-    }
 }
 
 // Start quiz for a specific subject
