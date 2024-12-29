@@ -109,23 +109,34 @@ nav a:hover {
     color: #222;
 }
 
-/* Lesson Notes List */
+/* Adjusting Anteckningar Alignment */
 .lesson-container ul {
-    padding-left: 20px;
-    margin: 15px 0;
+    padding: 0; /* Remove left padding for alignment */
+    margin: 10px 0; /* Adjust margins */
     list-style-type: none;
 }
 
+/* Fixing Note Icon for Anteckningar */
 .lesson-container ul li {
     margin-bottom: 10px;
     font-size: 16px;
+    position: relative; /* For better alignment with the icon */
 }
 
 .lesson-container ul li::before {
     content: '📄'; /* Icon for notes */
     margin-right: 8px;
     color: #007BFF;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
+
+/* Prevent Icon on Empty Rows */
+.lesson-container ul li:empty::before {
+    content: none;
+}
+
 
 /* Video Styling */
 .lesson-video {
