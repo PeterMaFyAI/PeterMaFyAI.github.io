@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const basePath = 'data/';
     const courses = {
-        "fysik1": { chapters: 12, path: 'fysik1' },
-        "fysik2": { chapters: 8, path: 'fysik2' }
+        "fysik1": { displayName: "Fysik 1", chapters: 12, path: 'fysik1' },
+        "fysik2": { displayName: "Fysik 2", chapters: 8, path: 'fysik2' }
     };
 
     // Function to create the main menu
