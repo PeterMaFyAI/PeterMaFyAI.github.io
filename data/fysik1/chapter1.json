@@ -23,7 +23,7 @@
             { "title": "Lektionsanteckningar 2", "url": "https://drive.google.com/file/d/1bLDgQ5XeaEpPTYNPw4Uyh-XHoclfaIdj/view" }
         ],
         "resources": [
-            { "type": "video", "url": "https://www.youtube.com/watch?v=Nog9auHaAy8&t=1s" },
+            { "type": "video", "url": "https://www.youtube.com/embed/Nog9auHaAy8?si=FTByCKpz3tnyYD0d" },
             { "type": "link", "url": "https://www.physicsclassroom.com/Concept-Builders/Work-and-Energy/Energy-Conservation" }
         ]
     }
