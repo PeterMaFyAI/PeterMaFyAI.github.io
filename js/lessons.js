@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     container.className = 'menu-container';
     document.body.appendChild(container);
 
+    const lessonDisplay = document.createElement('div');
+    lessonDisplay.className = 'lesson-container';
+    document.body.appendChild(lessonDisplay);
+
     const basePath = 'data/';
     const courses = {
         "Fysik 1": { chapters: 12, path: 'fysik1' },
@@ -91,9 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to display a selected lesson
     const displayLesson = (lesson) => {
-        container.innerHTML = ''; // Clear the menu
-        const lessonContainer = document.createElement('div');
-        lessonContainer.className = 'lesson-container';
+        lessonDisplay.innerHTML = ''; // Clear the previous lesson display
 
         const title = document.createElement('h2');
         title.textContent = lesson.title;
@@ -121,10 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
             resources.appendChild(resourceItem);
         });
 
-        lessonContainer.appendChild(title);
-        lessonContainer.appendChild(content);
-        lessonContainer.appendChild(resources);
-        document.body.appendChild(lessonContainer);
+        lessonDisplay.appendChild(title);
+        lessonDisplay.appendChild(content);
+        lessonDisplay.appendChild(resources);
     };
 
     // Function to remove all submenus
