@@ -95,9 +95,17 @@ nav a:hover {
     margin: 10px 0;
 }
 
-.lesson-container li {
-    margin-bottom: 10px;
+.lesson-container {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 800px;
+    text-align: left;
+    clear: both; /* Ensure it doesn't overlap with floating elements */
 }
+
 
 .lesson-video {
     width: 100%;
