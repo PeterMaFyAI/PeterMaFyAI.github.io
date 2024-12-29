@@ -106,6 +106,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const content = document.createElement('p');
         content.textContent = lesson.content;
 
+        /*Added below 1 */
+        const bookPages = document.createElement('p');
+        bookPages.innerHTML = `<strong>Läs:</strong> ${lesson.book_pages}`;
+
+        const exercises = document.createElement('p');
+        exercises.innerHTML = `<strong>Räkna:</strong> ${lesson.exercises}`;
+
+        const notes = document.createElement('ul');
+        notes.className = 'resources';
+        notes.innerHTML = `<strong>Anteckningar:</strong>`;
+        lesson.notes.forEach(note => {
+            const noteItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = note;
+            link.textContent = 'Visa anteckningar';
+            link.target = '_blank';
+            noteItem.appendChild(link);
+            notes.appendChild(noteItem);
+        });
+        /*Added above 1 */
+
+        
         const resources = document.createElement('ul');
         resources.className = 'resources';
         lesson.resources.forEach(resource => {
@@ -126,9 +148,24 @@ document.addEventListener("DOMContentLoaded", () => {
             resources.appendChild(resourceItem);
         });
 
+
+        /*Added below 2 */
+        const quizButton = document.createElement('button');
+        quizButton.className = 'btn';
+        quizButton.textContent = 'Starta Quiz';
+        quizButton.addEventListener('click', () => {
+            alert('Quiz kommer snart!'); // Placeholder functionality
+        });
+        
         lessonDisplay.appendChild(title);
         lessonDisplay.appendChild(content);
+        lessonDisplay.appendChild(bookPages);
+        lessonDisplay.appendChild(exercises);
+        lessonDisplay.appendChild(notes);
         lessonDisplay.appendChild(resources);
+        lessonDisplay.appendChild(quizButton);
+
+        /*Added above 2 */
 
         // Update the URL in the address bar
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
