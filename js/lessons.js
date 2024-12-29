@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         exercises.innerHTML = `<strong>Räkna:</strong> ${lesson.exercises}`;
 
         const lessonNotes = document.createElement('ul');
+        lessonNotes.className = 'lesson-notes'; // Add class for scoping styles
         lessonNotes.innerHTML = '<strong>Anteckningar:</strong>';
         
         if (lesson.lessonNotes && lesson.lessonNotes.length > 0) {
