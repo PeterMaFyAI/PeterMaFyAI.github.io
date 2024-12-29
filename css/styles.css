@@ -37,12 +37,11 @@ nav a:hover {
 }
 
 .menu, .submenu {
-    list-style-type: none; /* Remove default bullets */
+    list-style: none;
     padding: 0;
     margin: 0;
     position: relative;
-    width: auto; /* Adjust width dynamically based on content */
-    min-width: 150px; /* Set a minimum width to accommodate longer text */
+    min-width: 150px;
 }
 
 .menu-item {
@@ -50,8 +49,7 @@ nav a:hover {
     background-color: #f4f4f4;
     border: 1px solid #ddd;
     cursor: pointer;
-    position: relative;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .menu-item:hover {
@@ -70,14 +68,14 @@ nav a:hover {
     top: 0;
     left: 100%;
     z-index: 10;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .menu-item:hover > .submenu {
     display: block;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Lesson Display Styles */
+/* Lesson Display */
 .lesson-container {
     margin: 20px auto;
     padding: 20px;
@@ -89,14 +87,12 @@ nav a:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Lesson Title */
 .lesson-container h2 {
     margin: 0 0 10px;
     font-size: 24px;
     color: #333;
 }
 
-/* Lesson Content */
 .lesson-container p {
     margin: 10px 0;
     font-size: 16px;
@@ -109,34 +105,31 @@ nav a:hover {
     color: #222;
 }
 
-/* Adjusting Anteckningar Alignment */
-.lesson-container ul {
-    padding: 0; /* Remove left padding for alignment */
-    margin: 10px 0; /* Adjust margins */
-    list-style-type: none;
+/* Notes Section */
+.lesson-container ul.lesson-notes {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
 }
 
-/* Fixing Note Icon for Anteckningar */
-.lesson-container ul li {
+.lesson-container ul.lesson-notes li {
+    position: relative;
+    padding-left: 24px; /* Space for the icon */
     margin-bottom: 10px;
     font-size: 16px;
-    position: relative; /* For better alignment with the icon */
 }
 
-.lesson-container ul li::before {
-    content: '📄'; /* Icon for notes */
-    margin-right: 8px;
-    color: #007BFF;
+.lesson-container ul.lesson-notes li::before {
+    content: '📄';
     position: absolute;
     left: 0;
     top: 0;
+    color: #007BFF;
 }
 
-/* Prevent Icon on Empty Rows */
-.lesson-container ul li:empty::before {
+.lesson-container ul:not(.lesson-notes) li::before {
     content: none;
 }
-
 
 /* Video Styling */
 .lesson-video {
@@ -175,9 +168,9 @@ nav a:hover {
     padding-bottom: 5px;
 }
 
-/* Resource List */
+/* Resources List */
 .lesson-container .resources {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
@@ -185,14 +178,9 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
-/* Hidden Element Styles */
-.hidden {
-    display: none;
-}
-
-/* Option List for Quizzes (if used) */
+/* Quiz Options */
 .options {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
 }
@@ -205,4 +193,9 @@ nav a:hover {
 
 .options input[type="radio"] {
     margin-right: 10px;
+}
+
+/* Hidden Element */
+.hidden {
+    display: none;
 }
