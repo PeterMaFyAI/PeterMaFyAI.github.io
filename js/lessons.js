@@ -157,7 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
     
-            loadLessons(`${basePath}${courseData.path}/${directChapter}`, container, (lessons) => {
+            const path = `${basePath}${courseData.path}/${directChapter}.json`;
+            console.log("Fetching lessons from:", path);
+    
+            loadLessons(path, container, (lessons) => {
                 if (!lessons) {
                     console.error("No lessons found in chapter:", directChapter);
                     return;
@@ -165,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
                 const lesson = lessons.find(l => l.id === directLessonId);
                 if (lesson) {
+                    console.log("Lesson found:", lesson);
                     displayLesson(lesson);
                 } else {
                     console.error("Lesson not found:", directLessonId);
@@ -172,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     };
+
 
 
     createMenu();
