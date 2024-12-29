@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "fysik2": { displayName: "Fysik 2", chapters: 8, path: 'fysik2' }
     };
 
-    // Function to create the main menu
     const createMenu = () => {
         const menu = document.createElement('ul');
         menu.className = 'menu';
@@ -26,11 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
             menu.appendChild(menuItem);
         });
 
-        // Check for direct link and navigate automatically if applicable
         handleDirectLink();
     };
 
-    // Function to create menu items
     const createMenuItem = (label, onClick) => {
         const item = document.createElement('li');
         item.className = 'menu-item';
@@ -42,13 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
         item.appendChild(arrow);
 
         item.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent click from propagating
+            e.stopPropagation();
             onClick();
         });
         return item;
     };
 
-    // Function to create submenus
     const createSubMenu = (parentItem, courseData) => {
         removeSubMenus(parentItem);
 
@@ -66,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         parentItem.appendChild(subMenu);
     };
 
-    // Function to load and display lessons
     const loadLessons = (path, parentItem, callback) => {
         removeSubMenus(parentItem);
 
@@ -77,9 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 lessonMenu.className = 'submenu';
 
                 lessons.forEach(lesson => {
-                    lesson.course = path.split('/')[1]; // Extract course from the path
-                    lesson.chapter = path.split('/')[2].replace('.json', ''); // Extract chapter from the path
-                    
+                    lesson.course = path.split('/')[1];
+                    lesson.chapter = path.split('/')[2].replace('.json', '');
+
                     const lessonItem = document.createElement('li');
                     lessonItem.className = 'menu-item';
                     lessonItem.textContent = lesson.title;
@@ -96,9 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     };
 
-    // Function to display a selected lesson
     const displayLesson = (lesson) => {
-        lessonDisplay.innerHTML = ''; // Clear the previous lesson display
+        lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
         title.textContent = lesson.title;
@@ -106,69 +100,75 @@ document.addEventListener("DOMContentLoaded", () => {
         const content = document.createElement('p');
         content.textContent = lesson.content;
 
-        const resources = document.createElement('ul');
-        resources.className = 'resources';
-        lesson.resources.forEach(resource => {
-            const resourceItem = document.createElement('li');
-            if (resource.type === 'video') {
+        const bookPages = document.createElement('p');
+        bookPages.textContent = lesson.bookPages;
+
+        const exercises = document.createElement('p');
+        exercises.textContent = lesson.exercises;
+
+        const notesLink = document.createElement('a');
+        notesLink.href = lesson.notes;
+        notesLink.target = '_blank';
+        notesLink.innerHTML = `<img src="icons/pdf-icon.png" alt="PDF icon" style="width:20px;"> Lesson Notes`;
+
+        const videoSection = document.createElement('div');
+        lesson.videos.forEach(video => {
+            if (video.type === 'video') {
                 const iframe = document.createElement('iframe');
-                iframe.src = resource.url;
-                iframe.setAttribute('allowfullscreen', '');
-                iframe.className = 'lesson-video';
-                resourceItem.appendChild(iframe);
-            } else if (resource.type === 'link') {
+                iframe.src = video.url;
+                iframe.allowFullscreen = true;
+                videoSection.appendChild(iframe);
+            } else if (video.type === 'link') {
                 const link = document.createElement('a');
-                link.href = resource.url;
-                link.textContent = 'Read more';
+                link.href = video.url;
                 link.target = '_blank';
-                resourceItem.appendChild(link);
+                link.textContent = 'Recommended Video';
+                videoSection.appendChild(link);
             }
-            resources.appendChild(resourceItem);
         });
+
+        const quizButton = document.createElement('button');
+        quizButton.textContent = 'Start Quiz';
+        quizButton.className = 'btn';
+        quizButton.addEventListener('click', () => alert('Quiz functionality coming soon!'));
 
         lessonDisplay.appendChild(title);
         lessonDisplay.appendChild(content);
-        lessonDisplay.appendChild(resources);
-
-        // Update the URL in the address bar
-        const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
-        history.pushState(null, '', newUrl);
+        lessonDisplay.appendChild(bookPages);
+        lessonDisplay.appendChild(exercises);
+        lessonDisplay.appendChild(notesLink);
+        lessonDisplay.appendChild(videoSection);
+        lessonDisplay.appendChild(quizButton);
     };
 
-    // Function to remove all submenus
     const removeSubMenus = (parentItem) => {
         const subMenus = parentItem.querySelectorAll('.submenu');
         subMenus.forEach(subMenu => subMenu.remove());
     };
 
-    // Handle Direct Linking
     const handleDirectLink = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const directCourse = urlParams.get('course');
         const directChapter = urlParams.get('chapter');
         const directLessonId = urlParams.get('lesson');
-    
-        console.log("Direct Linking Parameters:", { directCourse, directChapter, directLessonId });
-    
+
         if (directCourse && directChapter) {
             const courseData = courses[directCourse];
             if (!courseData) {
                 console.error("Course not found:", directCourse);
                 return;
             }
-    
+
             const path = `${basePath}${courseData.path}/${directChapter}.json`;
-            console.log("Fetching lessons from:", path);
-    
+
             loadLessons(path, container, (lessons) => {
                 if (!lessons) {
                     console.error("No lessons found in chapter:", directChapter);
                     return;
                 }
-    
+
                 const lesson = lessons.find(l => l.id === directLessonId);
                 if (lesson) {
-                    console.log("Lesson found:", lesson);
                     displayLesson(lesson);
                 } else {
                     console.error("Lesson not found:", directLessonId);
@@ -176,8 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     };
-
-
 
     createMenu();
 });
