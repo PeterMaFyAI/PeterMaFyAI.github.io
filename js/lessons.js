@@ -140,19 +140,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const directCourse = urlParams.get('course');
         const directChapter = urlParams.get('chapter');
         const directLessonId = urlParams.get('lesson');
-
+    
+        console.log("Direct Linking Parameters:", { directCourse, directChapter, directLessonId });
+    
         if (directCourse && directChapter) {
             const courseData = courses[directCourse];
-            if (courseData) {
-                loadLessons(`${basePath}${courseData.path}/${directChapter}.json`, container, (lessons) => {
-                    if (directLessonId) {
-                        const lesson = lessons.find(l => l.id === directLessonId);
-                        if (lesson) displayLesson(lesson);
-                    }
-                });
+            if (!courseData) {
+                console.error("Course not found:", directCourse);
+                return;
             }
+    
+            loadLessons(`${basePath}${courseData.path}/${directChapter}`, container, (lessons) => {
+                if (!lessons) {
+                    console.error("No lessons found in chapter:", directChapter);
+                    return;
+                }
+    
+                const lesson = lessons.find(l => l.id === directLessonId);
+                if (lesson) {
+                    displayLesson(lesson);
+                } else {
+                    console.error("Lesson not found:", directLessonId);
+                }
+            });
         }
     };
+
 
     createMenu();
 });
