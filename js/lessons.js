@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "fysik2": { displayName: "Fysik 2", chapters: 8, path: 'fysik2' }
     };
 
-    // Function to create the main menu
     const createMenu = () => {
         const menu = document.createElement('ul');
         menu.className = 'menu';
@@ -26,11 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
             menu.appendChild(menuItem);
         });
 
-        // Check for direct link and navigate automatically if applicable
         handleDirectLink();
     };
 
-    // Function to create menu items
     const createMenuItem = (label, onClick) => {
         const item = document.createElement('li');
         item.className = 'menu-item';
@@ -42,13 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
         item.appendChild(arrow);
 
         item.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent click from propagating
+            e.stopPropagation();
             onClick();
         });
         return item;
     };
 
-    // Function to create submenus
     const createSubMenu = (parentItem, courseData) => {
         removeSubMenus(parentItem);
 
@@ -66,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         parentItem.appendChild(subMenu);
     };
 
-    // Function to load and display lessons
     const loadLessons = (path, parentItem, callback) => {
         removeSubMenus(parentItem);
 
@@ -77,9 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 lessonMenu.className = 'submenu';
 
                 lessons.forEach(lesson => {
-                    lesson.course = path.split('/')[1]; // Extract course from the path
-                    lesson.chapter = path.split('/')[2].replace('.json', ''); // Extract chapter from the path
-                    
+                    lesson.course = path.split('/')[1];
+                    lesson.chapter = path.split('/')[2].replace('.json', '');
+
                     const lessonItem = document.createElement('li');
                     lessonItem.className = 'menu-item';
                     lessonItem.textContent = lesson.title;
@@ -96,15 +91,32 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     };
 
-    // Function to display a selected lesson
     const displayLesson = (lesson) => {
-        lessonDisplay.innerHTML = ''; // Clear the previous lesson display
+        lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
         title.textContent = lesson.title;
 
         const content = document.createElement('p');
         content.textContent = lesson.content;
+
+        const bookPages = document.createElement('p');
+        bookPages.innerHTML = `<strong>Läs:</strong> ${lesson.bookPages}`;
+
+        const exercises = document.createElement('p');
+        exercises.innerHTML = `<strong>Räkna:</strong> ${lesson.exercises}`;
+
+        const lessonNotes = document.createElement('ul');
+        lessonNotes.innerHTML = '<strong>Anteckningar:</strong>';
+        lesson.lessonNotes.forEach(note => {
+            const noteItem = document.createElement('li');
+            const noteLink = document.createElement('a');
+            noteLink.href = note.url;
+            noteLink.textContent = note.title;
+            noteLink.target = '_blank';
+            noteItem.appendChild(noteLink);
+            lessonNotes.appendChild(noteItem);
+        });
 
         const resources = document.createElement('ul');
         resources.className = 'resources';
@@ -126,49 +138,53 @@ document.addEventListener("DOMContentLoaded", () => {
             resources.appendChild(resourceItem);
         });
 
+        const quizButton = document.createElement('button');
+        quizButton.className = 'btn';
+        quizButton.textContent = 'Starta Quiz';
+        quizButton.addEventListener('click', () => {
+            alert('Quiz functionality coming soon!');
+        });
+
         lessonDisplay.appendChild(title);
         lessonDisplay.appendChild(content);
+        lessonDisplay.appendChild(bookPages);
+        lessonDisplay.appendChild(exercises);
+        lessonDisplay.appendChild(lessonNotes);
         lessonDisplay.appendChild(resources);
+        lessonDisplay.appendChild(quizButton);
 
-        // Update the URL in the address bar
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
         history.pushState(null, '', newUrl);
     };
 
-    // Function to remove all submenus
     const removeSubMenus = (parentItem) => {
         const subMenus = parentItem.querySelectorAll('.submenu');
         subMenus.forEach(subMenu => subMenu.remove());
     };
 
-    // Handle Direct Linking
     const handleDirectLink = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const directCourse = urlParams.get('course');
         const directChapter = urlParams.get('chapter');
         const directLessonId = urlParams.get('lesson');
-    
-        console.log("Direct Linking Parameters:", { directCourse, directChapter, directLessonId });
-    
+
         if (directCourse && directChapter) {
             const courseData = courses[directCourse];
             if (!courseData) {
                 console.error("Course not found:", directCourse);
                 return;
             }
-    
+
             const path = `${basePath}${courseData.path}/${directChapter}.json`;
-            console.log("Fetching lessons from:", path);
-    
+
             loadLessons(path, container, (lessons) => {
                 if (!lessons) {
                     console.error("No lessons found in chapter:", directChapter);
                     return;
                 }
-    
+
                 const lesson = lessons.find(l => l.id === directLessonId);
                 if (lesson) {
-                    console.log("Lesson found:", lesson);
                     displayLesson(lesson);
                 } else {
                     console.error("Lesson not found:", directLessonId);
@@ -176,8 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     };
-
-
 
     createMenu();
 });
