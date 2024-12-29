@@ -1,24 +1,16 @@
 [
     {
-        "id": "lesson1",
         "title": "Newton's Laws of Motion",
         "content": "Newton's laws describe the relationship between the motion of an object and the forces acting on it.",
-        "bookPages": "Läs sidan 20-30",
-        "exercises": "Räkna uppgift 1.2-1.5",
-        "notes": "https://drive.google.com/file/d/1M7vHtizWRouBQaIyWXJmE67hiJeHo8-M/view",
-        "videos": [
+        "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
             { "type": "link", "url": "https://example.com/newtons-laws" }
         ]
     },
     {
-        "id": "lesson2",
         "title": "Energy Conservation",
         "content": "The principle of energy conservation states that energy cannot be created or destroyed.",
-        "bookPages": "Läs sidan 40-50",
-        "exercises": "Räkna uppgift 2.1-2.4",
-        "notes": "https://drive.google.com/file/d/1bLDgQ5XeaEpPTYNPw4Uyh-XHoclfaIdj/view",
-        "videos": [
+        "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/abcdefg123" },
             { "type": "link", "url": "https://example.com/energy-conservation" }
         ]
