@@ -110,4 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(content);
         container.appendChild(resources);
     };
+    // Direct Linking Script Addition
+    const urlParams = new URLSearchParams(window.location.search);
+    const directCourse = urlParams.get('course');
+    const directChapter = urlParams.get('chapter');
+    const directLessonId = urlParams.get('lesson');
+
+    if (directCourse && directChapter) {
+        loadLessons(`${basePath}${directCourse}/${directChapter}`, (lessons) => {
+            if (directLessonId) {
+                const lesson = lessons.find(l => l.id === directLessonId);
+                if (lesson) displayLesson(lesson);
+            }
+        });
+    }   
 });
