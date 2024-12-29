@@ -1,84 +1,99 @@
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.createElement('div');
-    container.className = 'lesson-container';
+    container.className = 'menu-container';
     document.body.appendChild(container);
 
     const basePath = 'data/';
-    let currentCourse = null;
-    let currentChapter = null;
-
-    // Step 1: Load Courses
     const courses = {
-        "Fysik 1": "fysik1",
-        "Fysik 2": "fysik2"
+        "Fysik 1": { chapters: 12, path: 'fysik1' },
+        "Fysik 2": { chapters: 8, path: 'fysik2' }
     };
 
-    const createDropdown = (options, placeholder, onChange) => {
-        const select = document.createElement('select');
-        const defaultOption = document.createElement('option');
-        defaultOption.textContent = placeholder;
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        select.appendChild(defaultOption);
+    // Function to create the main menu
+    const createMenu = () => {
+        const menu = document.createElement('ul');
+        menu.className = 'menu';
+        container.appendChild(menu);
 
-        options.forEach(opt => {
-            const option = document.createElement('option');
-            option.value = opt.value;
-            option.textContent = opt.label;
-            select.appendChild(option);
+        Object.entries(courses).forEach(([courseName, courseData]) => {
+            const menuItem = createMenuItem(courseName, () => {
+                createSubMenu(menuItem, courseData);
+            });
+            menu.appendChild(menuItem);
         });
 
-        select.addEventListener('change', () => onChange(select.value));
-        container.appendChild(select);
+        // Check for direct link and navigate automatically if applicable
+        handleDirectLink();
     };
 
-    createDropdown(
-        Object.entries(courses).map(([label, value]) => ({ label, value })),
-        "Select Course",
-        course => {
-            currentCourse = course;
-            loadChapters(course);
+    // Function to create menu items
+    const createMenuItem = (label, onClick) => {
+        const item = document.createElement('li');
+        item.className = 'menu-item';
+        item.textContent = label;
+
+        const arrow = document.createElement('span');
+        arrow.textContent = ' ▶';
+        arrow.className = 'arrow';
+        item.appendChild(arrow);
+
+        item.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from propagating
+            onClick();
+        });
+        return item;
+    };
+
+    // Function to create submenus
+    const createSubMenu = (parentItem, courseData) => {
+        removeSubMenus(parentItem);
+
+        const subMenu = document.createElement('ul');
+        subMenu.className = 'submenu';
+
+        for (let i = 1; i <= courseData.chapters; i++) {
+            const chapterLabel = `Chapter ${i}`;
+            const chapterItem = createMenuItem(chapterLabel, () => {
+                loadLessons(`${basePath}${courseData.path}/chapter${i}.json`, chapterItem);
+            });
+            subMenu.appendChild(chapterItem);
         }
-    );
 
-    // Step 2: Load Chapters
-    const loadChapters = (course) => {
-        container.innerHTML = ''; // Clear previous selections
-        createDropdown(
-            Array.from({ length: course === 'fysik1' ? 12 : 8 }, (_, i) => ({
-                label: `Chapter ${i + 1}`,
-                value: `chapter${i + 1}.json`
-            })),
-            "Select Chapter",
-            chapter => {
-                currentChapter = chapter;
-                loadLessons(`${basePath}${course}/${chapter}`);
-            }
-        );
+        parentItem.appendChild(subMenu);
     };
 
-    // Step 3: Load Lessons
-    const loadLessons = (path) => {
-        container.innerHTML = ''; // Clear previous selections
+    // Function to load and display lessons
+    const loadLessons = (path, parentItem, callback) => {
+        removeSubMenus(parentItem);
+
         fetch(path)
             .then(response => response.json())
             .then(lessons => {
+                const lessonMenu = document.createElement('ul');
+                lessonMenu.className = 'submenu';
+
                 lessons.forEach(lesson => {
-                    const button = document.createElement('button');
-                    button.textContent = lesson.title;
-                    button.className = 'btn';
-                    button.addEventListener('click', () => displayLesson(lesson));
-                    container.appendChild(button);
+                    const lessonItem = document.createElement('li');
+                    lessonItem.className = 'menu-item';
+                    lessonItem.textContent = lesson.title;
+                    lessonItem.addEventListener('click', () => displayLesson(lesson));
+                    lessonMenu.appendChild(lessonItem);
                 });
+
+                parentItem.appendChild(lessonMenu);
+
+                if (callback) callback(lessons);
             })
             .catch(error => {
                 console.error('Error loading lessons:', error);
             });
     };
 
-    // Step 4: Display Lesson
+    // Function to display a selected lesson
     const displayLesson = (lesson) => {
-        container.innerHTML = ''; // Clear previous selections
+        container.innerHTML = ''; // Clear the menu
+        const lessonContainer = document.createElement('div');
+        lessonContainer.className = 'lesson-container';
 
         const title = document.createElement('h2');
         title.textContent = lesson.title;
@@ -106,22 +121,37 @@ document.addEventListener("DOMContentLoaded", () => {
             resources.appendChild(resourceItem);
         });
 
-        container.appendChild(title);
-        container.appendChild(content);
-        container.appendChild(resources);
+        lessonContainer.appendChild(title);
+        lessonContainer.appendChild(content);
+        lessonContainer.appendChild(resources);
+        document.body.appendChild(lessonContainer);
     };
-    // Direct Linking Script Addition
-    const urlParams = new URLSearchParams(window.location.search);
-    const directCourse = urlParams.get('course');
-    const directChapter = urlParams.get('chapter');
-    const directLessonId = urlParams.get('lesson');
 
-    if (directCourse && directChapter) {
-        loadLessons(`${basePath}${directCourse}/${directChapter}`, (lessons) => {
-            if (directLessonId) {
-                const lesson = lessons.find(l => l.id === directLessonId);
-                if (lesson) displayLesson(lesson);
+    // Function to remove all submenus
+    const removeSubMenus = (parentItem) => {
+        const subMenus = parentItem.querySelectorAll('.submenu');
+        subMenus.forEach(subMenu => subMenu.remove());
+    };
+
+    // Handle Direct Linking
+    const handleDirectLink = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const directCourse = urlParams.get('course');
+        const directChapter = urlParams.get('chapter');
+        const directLessonId = urlParams.get('lesson');
+
+        if (directCourse && directChapter) {
+            const courseData = courses[directCourse];
+            if (courseData) {
+                loadLessons(`${basePath}${courseData.path}/${directChapter}.json`, container, (lessons) => {
+                    if (directLessonId) {
+                        const lesson = lessons.find(l => l.id === directLessonId);
+                        if (lesson) displayLesson(lesson);
+                    }
+                });
             }
-        });
-    }   
+        }
+    };
+
+    createMenu();
 });
