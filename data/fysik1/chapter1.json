@@ -1,0 +1,20 @@
+[
+    {
+        "id": "lesson1",
+        "title": "Introduction to Physics",
+        "content": "Physics is the study of matter, energy, and the interactions between them.",
+        "resources": [
+            { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
+            { "type": "link", "url": "https://example.com/introduction-to-physics" }
+        ]
+    },
+    {
+        "id": "lesson2",
+        "title": "Motion and Forces",
+        "content": "Learn about the fundamental principles of motion and forces in physics.",
+        "resources": [
+            { "type": "video", "url": "https://www.youtube.com/embed/abcdefg123" },
+            { "type": "link", "url": "https://example.com/motion-and-forces" }
+        ]
+    }
+]
