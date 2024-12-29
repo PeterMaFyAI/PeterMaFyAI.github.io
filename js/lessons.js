@@ -108,15 +108,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const lessonNotes = document.createElement('ul');
         lessonNotes.innerHTML = '<strong>Anteckningar:</strong>';
-        lesson.lessonNotes.forEach(note => {
-            const noteItem = document.createElement('li');
-            const noteLink = document.createElement('a');
-            noteLink.href = note.url;
-            noteLink.textContent = note.title;
-            noteLink.target = '_blank';
-            noteItem.appendChild(noteLink);
-            lessonNotes.appendChild(noteItem);
-        });
+        
+        if (lesson.lessonNotes && lesson.lessonNotes.length > 0) {
+            lesson.lessonNotes.forEach(note => {
+                const noteItem = document.createElement('li');
+                const noteLink = document.createElement('a');
+                noteLink.href = note.url;
+                noteLink.textContent = note.title;
+                noteLink.target = '_blank';
+                noteItem.appendChild(noteLink);
+                lessonNotes.appendChild(noteItem);
+            });
+        } else {
+            const emptyMessage = document.createElement('li');
+            emptyMessage.textContent = "Inga anteckningar tillgängliga.";
+            lessonNotes.appendChild(emptyMessage);
+        }
 
         const resources = document.createElement('ul');
         resources.className = 'resources';
