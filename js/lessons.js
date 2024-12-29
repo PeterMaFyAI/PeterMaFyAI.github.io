@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         subMenu.className = 'submenu';
 
         for (let i = 1; i <= courseData.chapters; i++) {
-            const chapterLabel = `Chapter ${i}`;
+            const chapterLabel = `Kapitel ${i}`;
             const chapterItem = createMenuItem(chapterLabel, () => {
                 loadLessons(`${basePath}${courseData.path}/chapter${i}.json`, chapterItem);
             });
