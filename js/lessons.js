@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(menu);
 
         Object.entries(courses).forEach(([courseName, courseData]) => {
-            const menuItem = createMenuItem(courseName, () => {
+            const menuItem = createMenuItem(courseData.displayName, () => {
                 createSubMenu(menuItem, courseData);
             });
             menu.appendChild(menuItem);
