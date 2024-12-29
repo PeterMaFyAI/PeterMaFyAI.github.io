@@ -1,30 +1,30 @@
 [
     {
         "id": "lesson1",
-        "title": "Newton's Laws of Motion",
-        "content": "Newton's laws describe the relationship between the motion of an object and the forces acting on it.",
-        "bookPages": "Läs sidan 20-30",
-        "exercises": "Räkna uppgift 1.2-1.5",
+        "title": "Newtons rörelselagar",
+        "content": "Newtons lagar beskriver relationen mellan krafterna på ett föremål och hur det rör sig.",
+        "bookPages": "s. 20-30",
+        "exercises": "(kap 1): 1.2-1.5",
         "lessonNotes": [
-            { "title": "Lesson Notes 1", "url": "https://drive.google.com/file/d/1M7vHtizWRouBQaIyWXJmE67hiJeHo8-M/view" }
+            { "title": "Lektionsanteckningar 1", "url": "https://drive.google.com/file/d/1M7vHtizWRouBQaIyWXJmE67hiJeHo8-M/view" }
         ],
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
-            { "type": "link", "url": "https://example.com/newtons-laws" }
+            { "type": "link", "url": "https://www.youtube.com/watch?v=24GfgNtnjXc" }
         ]
     },
     {
         "id": "lesson2",
-        "title": "Energy Conservation",
-        "content": "The principle of energy conservation states that energy cannot be created or destroyed.",
-        "bookPages": "Läs sidan 31-40",
-        "exercises": "Räkna uppgift 2.1-2.4",
+        "title": "Energiprincipen",
+        "content": "Energiprincipen säger att energi aldrig kan skapas eller förstöras, bara omvandlas från en form till en annan.",
+        "bookPages": "s. 31-40",
+        "exercises": "(kap 2) 2.1-2.4",
         "lessonNotes": [
-            { "title": "Lesson Notes 2", "url": "https://drive.google.com/file/d/1bLDgQ5XeaEpPTYNPw4Uyh-XHoclfaIdj/view" }
+            { "title": "Lektionsanteckningar 2", "url": "https://drive.google.com/file/d/1bLDgQ5XeaEpPTYNPw4Uyh-XHoclfaIdj/view" }
         ],
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/abcdefg123" },
-            { "type": "link", "url": "https://example.com/energy-conservation" }
+            { "type": "link", "url": "https://www.physicsclassroom.com/Concept-Builders/Work-and-Energy/Energy-Conservation" }
         ]
     }
 ]
