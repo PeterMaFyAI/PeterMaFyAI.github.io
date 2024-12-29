@@ -77,6 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 lessonMenu.className = 'submenu';
 
                 lessons.forEach(lesson => {
+                    lesson.course = path.split('/')[1]; // Extract course from the path
+                    lesson.chapter = path.split('/')[2].replace('.json', ''); // Extract chapter from the path
+                    
                     const lessonItem = document.createElement('li');
                     lessonItem.className = 'menu-item';
                     lessonItem.textContent = lesson.title;
@@ -126,6 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
         lessonDisplay.appendChild(title);
         lessonDisplay.appendChild(content);
         lessonDisplay.appendChild(resources);
+
+        // Update the URL in the address bar
+        const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
+        history.pushState(null, '', newUrl);
     };
 
     // Function to remove all submenus
