@@ -181,7 +181,25 @@ document.addEventListener("DOMContentLoaded", () => {
         lessonDisplay.appendChild(exercises);
         lessonDisplay.appendChild(lessonNotes);
         lessonDisplay.appendChild(resources);
-        lessonDisplay.appendChild(quizButton);
+
+        // Add "Starta Quiz" button to the quiz-container
+        const quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = ''; // Clear any previous content
+        const quizButton = document.createElement('button');
+        quizButton.className = 'btn';
+        quizButton.textContent = 'Starta Quiz';
+        quizButton.addEventListener('click', () => {
+            const event = new CustomEvent("startQuiz", {
+                detail: {
+                    lessonId: lesson.id,
+                    course: lesson.course,
+                    chapter: lesson.chapter
+                }
+            });
+            document.dispatchEvent(event);
+        });
+    
+        quizContainer.appendChild(quizButton)
 
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
         history.pushState(null, '', newUrl);
