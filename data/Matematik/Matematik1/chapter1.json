@@ -2,7 +2,7 @@
     {
         "id": "lesson1",
         "title": "Matematik Algebra",
-        "content": "Newtons lagar beskriver relationen mellan krafterna på ett föremål och hur det rör sig.",
+        "content": "Att kunna hantera algebra väl är väldigt viktigt för att kunna arbeta effektivt med matematik.",
         "bookPages": "s. 20-30",
         "exercises": "(kap 1): 1.2-1.5",
         "lessonNotes": [
@@ -16,7 +16,7 @@
     {
         "id": "lesson2",
         "title": "Matematik Funktioner",
-        "content": "Energiprincipen säger att energi aldrig kan skapas eller förstöras, bara omvandlas från en form till en annan.",
+        "content": "Funktioner är en viktig del av matematiken. De låter oss beskriva många olika verkliga fenomen.",
         "bookPages": "s. 31-40",
         "exercises": "(kap 2) 2.1-2.4",
         "lessonNotes": [
