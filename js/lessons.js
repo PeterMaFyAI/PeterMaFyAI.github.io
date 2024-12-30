@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const displayLesson = (lesson) => {
+        lessonDisplay.style.display = "block"; // Make visible
         lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
