@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const displayLesson = (lesson) => {
-        //lessonDisplay.style.display = "block"; // Make visible
         lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
@@ -182,10 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lessonDisplay.appendChild(exercises);
         lessonDisplay.appendChild(lessonNotes);
         lessonDisplay.appendChild(resources);
-
-        const quizContainer = document.getElementById("quiz-container");
-        quizContainer.innerHTML = ''; // Clear previous content
-        quizContainer.appendChild(quizButton);
+        lessonDisplay.appendChild(quizButton);
 
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
         history.pushState(null, '', newUrl);
