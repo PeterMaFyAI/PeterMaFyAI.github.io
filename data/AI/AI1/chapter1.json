@@ -2,7 +2,7 @@
     {
         "id": "lesson1",
         "title": "AI Linjär regression",
-        "content": "Newtons lagar beskriver relationen mellan krafterna på ett föremål och hur det rör sig.",
+        "content": "Det enklaste exemplet på maskininlärning är linjär regression.",
         "bookPages": "s. 20-30",
         "exercises": "(kap 1): 1.2-1.5",
         "lessonNotes": [
@@ -16,7 +16,7 @@
     {
         "id": "lesson2",
         "title": "AI Neurala nätverk",
-        "content": "Energiprincipen säger att energi aldrig kan skapas eller förstöras, bara omvandlas från en form till en annan.",
+        "content": "Många moderna system, som chatGPT, är i grund och botten neurala nätverk.",
         "bookPages": "s. 31-40",
         "exercises": "(kap 2) 2.1-2.4",
         "lessonNotes": [
