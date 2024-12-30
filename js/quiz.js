@@ -1,5 +1,3 @@
-// quiz.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const basePath = 'data/';
     const subject = document.body.getAttribute('data-subject');
@@ -28,7 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const renderQuiz = (quiz) => {
-        const quizContainer = document.getElementById("quiz-container");
+        // Ensure we are targeting the correct quiz container
+        let quizContainer = document.getElementById("quiz-container");
+
+        if (!quizContainer) {
+            console.error("Quiz container not found!");
+            return;
+        }
+
         quizContainer.innerHTML = ""; // Clear any existing content
 
         const title = document.createElement("h3");
@@ -78,12 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
         quizContainer.appendChild(title);
         quizContainer.appendChild(questionList);
         quizContainer.appendChild(submitButton);
-        
-        // Ensure quiz container is below lesson container
-        const lessonContainer = document.getElementById("lesson-container");
-        lessonContainer.after(quizContainer);
 
-        
+        // Correctly append the quiz-container below the lesson-container
+        const lessonContainer = document.getElementById("lesson-container");
+        if (lessonContainer) {
+            lessonContainer.insertAdjacentElement("afterend", quizContainer);
+        }
     };
 
     const evaluateQuiz = (quiz) => {
