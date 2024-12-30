@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const scoreDisplay = document.createElement("p");
-        scoreDisplay.textContent = `Your score: ${score}/${quiz.questions.length}`;
+        scoreDisplay.textContent = `Antal rätt: ${score}/${quiz.questions.length}`;
         scoreDisplay.style.fontWeight = "bold";
         scoreDisplay.style.marginTop = "20px";
 
