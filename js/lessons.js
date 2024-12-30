@@ -5,10 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const lessonDisplay = document.createElement('div');
     lessonDisplay.className = 'lesson-container';
+    lessonDisplay.style.display = 'none'; // Hide initially
     document.body.appendChild(lessonDisplay);
 
     const quizContainer = document.getElementById('quiz-container');
     if (quizContainer) {
+        lessonDisplay.style.display = 'none'; // Hide initially
         lessonDisplay.insertAdjacentElement('afterend', quizContainer);
     }
 
@@ -107,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const displayLesson = (lesson) => {
+        // Make the containers visible
+        lessonDisplay.style.display = 'block';
+        quizContainer.style.display = 'block';
+        
         lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
