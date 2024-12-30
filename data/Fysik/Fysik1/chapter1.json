@@ -11,7 +11,29 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
             { "type": "link", "url": "https://www.youtube.com/watch?v=24GfgNtnjXc" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vilken av Newtons lagar handlar om att ett föremål förblir i vila eller rörelse tills en kraft påverkar det?",
+                    "options": [
+                        "Första lagen",
+                        "Andra lagen",
+                        "Tredje lagen"
+                    ],
+                    "correctOption": 0
+                },
+                {
+                    "text": "Vad beskriver Newtons tredje lag?",
+                    "options": [
+                        "Relationen mellan kraft och acceleration",
+                        "Att krafter alltid har en motkraft",
+                        "Att en kropp i rörelse förblir i rörelse"
+                    ],
+                    "correctOption": 1
+                }
+            ]
+        }
     },
     {
         "id": "lesson2",
@@ -25,6 +47,28 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/Nog9auHaAy8?si=FTByCKpz3tnyYD0d" },
             { "type": "link", "url": "https://www.physicsclassroom.com/Concept-Builders/Work-and-Energy/Energy-Conservation" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vad säger energiprincipen om energi?",
+                    "options": [
+                        "Energi kan skapas från ingenting",
+                        "Energi kan inte skapas eller förstöras, bara omvandlas",
+                        "Energi är oändlig och alltid konstant"
+                    ],
+                    "correctOption": 1
+                },
+                {
+                    "text": "Vilken form av energi omvandlas till värme vid friktion?",
+                    "options": [
+                        "Kinetisk energi",
+                        "Potentiell energi",
+                        "Mekanisk energi"
+                    ],
+                    "correctOption": 0
+                }
+            ]
+        }
     }
 ]
