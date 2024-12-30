@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const options = document.createElement("ul");
             options.className = "options";
+            options.style.listStyleType = "none"; // Remove bullet points
 
             question.options.forEach((option, optIndex) => {
                 const optionItem = document.createElement("li");
@@ -73,59 +74,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const submitButton = document.createElement("button");
-        submitButton.textContent = "Submit Quiz";
+        submitButton.textContent = "Rätta quiz";
         submitButton.className = "btn";
         submitButton.addEventListener("click", () => {
-            evaluateQuiz(quiz);
+            evaluateQuiz(quiz, submitButton);
         });
 
         quizContainer.appendChild(title);
         quizContainer.appendChild(questionList);
         quizContainer.appendChild(submitButton);
 
-        // Ensure quiz-container is visible at the correct position
-        quizContainer.style.display = "block";
+        quizContainer.style.display = "block"; // Ensure it's visible
     };
 
-    const evaluateQuiz = (quiz) => {
+    const evaluateQuiz = (quiz, submitButton) => {
         const quizContainer = document.getElementById("quiz-container");
         let score = 0;
-    
+
         quiz.questions.forEach((question, index) => {
             const questionBlock = document.querySelector(`.quiz-question:nth-child(${index + 1})`);
             const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
             const options = questionBlock.querySelectorAll(".options li");
-    
+
             options.forEach((option, optIndex) => {
                 const label = option.querySelector("label");
-                label.style.fontWeight = "normal"; // Reset any previous bolding
-                label.style.color = ""; // Reset any previous coloring
-    
+                label.style.fontWeight = "normal";
+                label.style.color = "";
+
                 if (optIndex === question.correctOption) {
-                    // Correct option
                     label.style.fontWeight = "bold";
                     label.style.color = "green";
                 }
-    
+
                 if (selectedOption && parseInt(selectedOption.value) === optIndex) {
                     if (optIndex === question.correctOption) {
                         score++;
                     } else {
-                        // Incorrectly selected option
                         label.style.fontWeight = "bold";
                         label.style.color = "red";
                     }
                 }
             });
         });
-    
-        // Display the score at the bottom
+
         const scoreDisplay = document.createElement("p");
         scoreDisplay.textContent = `Your score: ${score}/${quiz.questions.length}`;
         scoreDisplay.style.fontWeight = "bold";
         scoreDisplay.style.marginTop = "20px";
-    
-        // Append or replace the score display
+
         const existingScore = quizContainer.querySelector(".score-display");
         if (existingScore) {
             existingScore.replaceWith(scoreDisplay);
@@ -133,8 +129,14 @@ document.addEventListener("DOMContentLoaded", () => {
             scoreDisplay.className = "score-display";
             quizContainer.appendChild(scoreDisplay);
         }
-    };
 
+        // Disable and update the button
+        submitButton.disabled = true;
+        submitButton.textContent = "Försök igen";
+        submitButton.addEventListener("click", () => {
+            renderQuiz(quiz); // Reset the quiz
+        });
+    };
 
     // Listen for custom events to load the quiz
     document.addEventListener("startQuiz", (event) => {
