@@ -181,7 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
         lessonDisplay.appendChild(exercises);
         lessonDisplay.appendChild(lessonNotes);
         lessonDisplay.appendChild(resources);
-        lessonDisplay.appendChild(quizButton);
+
+        const quizContainer = document.getElementById("quiz-container");
+        quizContainer.innerHTML = ''; // Clear previous content
+        quizContainer.appendChild(quizButton);
 
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
         history.pushState(null, '', newUrl);
