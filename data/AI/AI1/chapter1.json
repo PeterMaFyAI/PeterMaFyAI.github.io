@@ -11,7 +11,29 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
             { "type": "link", "url": "https://www.youtube.com/watch?v=24GfgNtnjXc" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vad försöker linjär regression minimera?",
+                    "options": [
+                        "Standardavvikelsen",
+                        "Den totala felet",
+                        "Den genomsnittliga lutningen"
+                    ],
+                    "correctOption": 1
+                },
+                {
+                    "text": "Vilken typ av linje försöker linjär regression skapa?",
+                    "options": [
+                        "Den linje som passerar genom alla punkter",
+                        "Den linje som minimerar avståndet till alla datapunkter",
+                        "En horisontell linje"
+                    ],
+                    "correctOption": 1
+                }
+            ]
+        }
     },
     {
         "id": "lesson2",
@@ -25,6 +47,28 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/Nog9auHaAy8?si=FTByCKpz3tnyYD0d" },
             { "type": "link", "url": "https://www.physicsclassroom.com/Concept-Builders/Work-and-Energy/Energy-Conservation" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vad är syftet med aktiveringsfunktioner i neurala nätverk?",
+                    "options": [
+                        "Att beräkna derivator",
+                        "Att introducera icke-linjäritet",
+                        "Att förhindra överanpassning"
+                    ],
+                    "correctOption": 1
+                },
+                {
+                    "text": "Vad kallas en enhet i ett neuralt nätverk?",
+                    "options": [
+                        "Neuron",
+                        "Axon",
+                        "Synaps"
+                    ],
+                    "correctOption": 0
+                }
+            ]
+        }
     }
 ]
