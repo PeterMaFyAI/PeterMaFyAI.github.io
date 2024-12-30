@@ -4,13 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(container);
 
     const lessonDisplay = document.createElement('div');
+    lessonDisplay.id = 'lesson-container';
     lessonDisplay.className = 'lesson-container';
     lessonDisplay.style.display = 'none'; // Hide initially
     document.body.appendChild(lessonDisplay);
 
     const quizContainer = document.getElementById('quiz-container');
     if (quizContainer) {
-        lessonDisplay.style.display = 'none'; // Hide initially
+        quizContainer.style.display = 'none'; // Hide initially
         lessonDisplay.insertAdjacentElement('afterend', quizContainer);
     }
 
@@ -112,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Make the containers visible
         lessonDisplay.style.display = 'block';
         quizContainer.style.display = 'block';
-        
+
+        // Populate the lesson container
         lessonDisplay.innerHTML = '';
 
         const title = document.createElement('h2');
@@ -175,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
         lessonDisplay.appendChild(resources);
 
         // Add "Starta Quiz" button to the quiz-container
-        const quizContainer = document.getElementById('quiz-container');
         quizContainer.innerHTML = ''; // Clear any previous content
         const quizButton = document.createElement('button');
         quizButton.className = 'btn';
