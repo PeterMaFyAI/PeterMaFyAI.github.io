@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const renderQuiz = (quiz) => {
-        // Ensure we are targeting the correct quiz container
-        let quizContainer = document.getElementById("quiz-container");
+        const quizContainer = document.getElementById("quiz-container");
 
+        // Ensure the quiz-container exists
         if (!quizContainer) {
             console.error("Quiz container not found!");
             return;
@@ -84,10 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
         quizContainer.appendChild(questionList);
         quizContainer.appendChild(submitButton);
 
-        // Correctly append the quiz-container below the lesson-container
+        // Ensure quiz-container is placed immediately after lesson-container
         const lessonContainer = document.getElementById("lesson-container");
         if (lessonContainer) {
             lessonContainer.insertAdjacentElement("afterend", quizContainer);
+        } else {
+            console.error("Lesson container not found! Unable to position quiz.");
         }
     };
 
