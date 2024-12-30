@@ -9,7 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const basePath = 'data/';
     
-    const loadSubjectCourses = (subject) => {
+    // Get the subject from the body attribute
+    const subject = document.body.getAttribute('data-subject');
+    if (!subject) {
+        console.error("No subject specified in the HTML file.");
+        return;
+    }
+
+    const loadCourses = () => {
         fetch(`${basePath}${subject}/courses.json`)
             .then(response => response.json())
             .then(courses => {
@@ -19,12 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 courses.forEach(course => {
                     const menuItem = createMenuItem(course.displayName, () => {
-                        createSubMenu(menuItem, subject, course);
+                        createSubMenu(menuItem, course);
                     });
                     menu.appendChild(menuItem);
                 });
 
-                handleDirectLink(subject);
+                handleDirectLink();
             })
             .catch(error => {
                 console.error(`Error loading courses for subject ${subject}:`, error);
@@ -48,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return item;
     };
 
-    const createSubMenu = (parentItem, subject, course) => {
+    const createSubMenu = (parentItem, course) => {
         removeSubMenus(parentItem);
 
         const subMenu = document.createElement('ul');
@@ -173,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         subMenus.forEach(subMenu => subMenu.remove());
     };
 
-    const handleDirectLink = (subject) => {
+    const handleDirectLink = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const directCourse = urlParams.get('course');
         const directChapter = urlParams.get('chapter');
@@ -198,6 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Load courses for all subjects
-    ['Fysik', 'Matematik', 'AI'].forEach(loadSubjectCourses);
+    // Load courses for the specified subject
+    loadCourses();
 });
