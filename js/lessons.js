@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (quizContainer) {
         lessonDisplay.insertAdjacentElement('afterend', quizContainer);
     }
-    
+
     const basePath = 'data/';
-    
+
     // Get the subject from the body attribute
     const subject = document.body.getAttribute('data-subject');
     if (!subject) {
@@ -161,20 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resources.appendChild(resourceItem);
         });
 
-        const quizButton = document.createElement('button');
-        quizButton.className = 'btn';
-        quizButton.textContent = 'Starta Quiz';
-        quizButton.addEventListener('click', () => {
-            const event = new CustomEvent("startQuiz", {
-                detail: {
-                    lessonId: lesson.id,
-                    course: lesson.course,
-                    chapter: lesson.chapter
-                }
-            });
-            document.dispatchEvent(event);
-        });
-
         lessonDisplay.appendChild(title);
         lessonDisplay.appendChild(content);
         lessonDisplay.appendChild(bookPages);
@@ -198,8 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             document.dispatchEvent(event);
         });
-    
-        quizContainer.appendChild(quizButton)
+
+        quizContainer.appendChild(quizButton);
 
         const newUrl = `${window.location.pathname}?course=${lesson.course}&chapter=${lesson.chapter}&lesson=${lesson.id}`;
         history.pushState(null, '', newUrl);
