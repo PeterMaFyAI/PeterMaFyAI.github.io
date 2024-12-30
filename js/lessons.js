@@ -160,7 +160,14 @@ document.addEventListener("DOMContentLoaded", () => {
         quizButton.className = 'btn';
         quizButton.textContent = 'Starta Quiz';
         quizButton.addEventListener('click', () => {
-            alert('Quiz functionality coming soon!');
+            const event = new CustomEvent("startQuiz", {
+                detail: {
+                    lessonId: lesson.id,
+                    course: lesson.course,
+                    chapter: lesson.chapter
+                }
+            });
+            document.dispatchEvent(event);
         });
 
         lessonDisplay.appendChild(title);
