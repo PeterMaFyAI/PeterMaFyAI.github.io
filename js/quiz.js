@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const submitButton = document.createElement("button");
-        submitButton.textContent = "Rätta Quiz";
+        submitButton.textContent = "Submit Quiz";
         submitButton.className = "btn";
         submitButton.addEventListener("click", () => {
             evaluateQuiz(quiz);
