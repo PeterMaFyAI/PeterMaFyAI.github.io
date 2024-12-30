@@ -82,6 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
         quizContainer.appendChild(title);
         quizContainer.appendChild(questionList);
         quizContainer.appendChild(submitButton);
+
+        // Ensure it's at the bottom of the lesson container
+        const lessonContainer = document.getElementById("lesson-container");
+        if (lessonContainer) {
+            lessonContainer.insertAdjacentElement("afterend", quizContainer);
+        }
     };
 
     const evaluateQuiz = (quiz) => {
