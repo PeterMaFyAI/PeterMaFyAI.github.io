@@ -90,16 +90,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const evaluateQuiz = (quiz) => {
         const quizContainer = document.getElementById("quiz-container");
         let score = 0;
-
+    
         quiz.questions.forEach((question, index) => {
+            const questionBlock = document.querySelector(`.quiz-question:nth-child(${index + 1})`);
             const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-            if (selectedOption && parseInt(selectedOption.value) === question.correctOption) {
-                score++;
-            }
+            const options = questionBlock.querySelectorAll(".options li");
+    
+            options.forEach((option, optIndex) => {
+                const label = option.querySelector("label");
+                label.style.fontWeight = "normal"; // Reset any previous bolding
+                label.style.color = ""; // Reset any previous coloring
+    
+                if (optIndex === question.correctOption) {
+                    // Correct option
+                    label.style.fontWeight = "bold";
+                    label.style.color = "green";
+                }
+    
+                if (selectedOption && parseInt(selectedOption.value) === optIndex) {
+                    if (optIndex === question.correctOption) {
+                        score++;
+                    } else {
+                        // Incorrectly selected option
+                        label.style.fontWeight = "bold";
+                        label.style.color = "red";
+                    }
+                }
+            });
         });
-
-        quizContainer.innerHTML = `<p>Your score: ${score}/${quiz.questions.length}</p>`;
+    
+        // Display the score at the bottom
+        const scoreDisplay = document.createElement("p");
+        scoreDisplay.textContent = `Your score: ${score}/${quiz.questions.length}`;
+        scoreDisplay.style.fontWeight = "bold";
+        scoreDisplay.style.marginTop = "20px";
+    
+        // Append or replace the score display
+        const existingScore = quizContainer.querySelector(".score-display");
+        if (existingScore) {
+            existingScore.replaceWith(scoreDisplay);
+        } else {
+            scoreDisplay.className = "score-display";
+            quizContainer.appendChild(scoreDisplay);
+        }
     };
+
 
     // Listen for custom events to load the quiz
     document.addEventListener("startQuiz", (event) => {
