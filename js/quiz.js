@@ -78,6 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
         quizContainer.appendChild(title);
         quizContainer.appendChild(questionList);
         quizContainer.appendChild(submitButton);
+        
+        // Ensure quiz container is below lesson container
+        const lessonContainer = document.getElementById("lesson-container");
+        lessonContainer.after(quizContainer);
+
+        
     };
 
     const evaluateQuiz = (quiz) => {
