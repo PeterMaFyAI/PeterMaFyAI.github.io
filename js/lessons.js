@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     lessonDisplay.className = 'lesson-container';
     document.body.appendChild(lessonDisplay);
 
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) {
+        lessonDisplay.insertAdjacentElement('afterend', quizContainer);
+    }
+    
     const basePath = 'data/';
     
     // Get the subject from the body attribute
