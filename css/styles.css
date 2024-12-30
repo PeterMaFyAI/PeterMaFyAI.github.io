@@ -75,6 +75,16 @@ nav a:hover {
     display: block;
 }
 
+
+
+
+#lesson-container,
+#quiz-container {
+    display: none; /* Hidden by default */
+}
+
+
+
 /* Lesson Display */
 .lesson-container {
     margin: 20px auto;
@@ -141,7 +151,7 @@ nav a:hover {
 }
 
 /* Button Styling */
-.lesson-container .btn {
+.btn {
     display: inline-block;
     background-color: #007BFF;
     color: white;
@@ -154,7 +164,7 @@ nav a:hover {
     transition: background-color 0.3s ease;
 }
 
-.lesson-container .btn:hover {
+.btn:hover {
     background-color: #0056b3;
 }
 
@@ -210,9 +220,5 @@ nav a:hover {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-#quiz-container .btn:hover {
-    background-color: #0056b3;
 }
 
