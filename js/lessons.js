@@ -8,24 +8,27 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(lessonDisplay);
 
     const basePath = 'data/';
-    const courses = {
-        "fysik1": { displayName: "Fysik 1", chapters: 12, path: 'fysik1' },
-        "fysik2": { displayName: "Fysik 2", chapters: 8, path: 'fysik2' }
-    };
+    
+    const loadSubjectCourses = (subject) => {
+        fetch(`${basePath}${subject}/courses.json`)
+            .then(response => response.json())
+            .then(courses => {
+                const menu = document.createElement('ul');
+                menu.className = 'menu';
+                container.appendChild(menu);
 
-    const createMenu = () => {
-        const menu = document.createElement('ul');
-        menu.className = 'menu';
-        container.appendChild(menu);
+                courses.forEach(course => {
+                    const menuItem = createMenuItem(course.displayName, () => {
+                        createSubMenu(menuItem, subject, course);
+                    });
+                    menu.appendChild(menuItem);
+                });
 
-        Object.entries(courses).forEach(([courseName, courseData]) => {
-            const menuItem = createMenuItem(courseData.displayName, () => {
-                createSubMenu(menuItem, courseData);
+                handleDirectLink(subject);
+            })
+            .catch(error => {
+                console.error(`Error loading courses for subject ${subject}:`, error);
             });
-            menu.appendChild(menuItem);
-        });
-
-        handleDirectLink();
     };
 
     const createMenuItem = (label, onClick) => {
@@ -45,16 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return item;
     };
 
-    const createSubMenu = (parentItem, courseData) => {
+    const createSubMenu = (parentItem, subject, course) => {
         removeSubMenus(parentItem);
 
         const subMenu = document.createElement('ul');
         subMenu.className = 'submenu';
 
-        for (let i = 1; i <= courseData.chapters; i++) {
+        for (let i = 1; i <= course.chapters; i++) {
             const chapterLabel = `Kapitel ${i}`;
             const chapterItem = createMenuItem(chapterLabel, () => {
-                loadLessons(`${basePath}${courseData.path}/chapter${i}.json`, chapterItem);
+                loadLessons(`${basePath}${subject}/${course.id}/chapter${i}.json`, chapterItem);
             });
             subMenu.appendChild(chapterItem);
         }
@@ -72,8 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 lessonMenu.className = 'submenu';
 
                 lessons.forEach(lesson => {
-                    lesson.course = path.split('/')[1];
-                    lesson.chapter = path.split('/')[2].replace('.json', '');
+                    lesson.course = path.split('/')[2];
+                    lesson.chapter = path.split('/')[3].replace('.json', '');
 
                     const lessonItem = document.createElement('li');
                     lessonItem.className = 'menu-item';
@@ -107,9 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
         exercises.innerHTML = `<strong>Räkna:</strong> ${lesson.exercises}`;
 
         const lessonNotes = document.createElement('ul');
-        lessonNotes.className = 'lesson-notes'; // Add class for scoping styles
+        lessonNotes.className = 'lesson-notes';
         lessonNotes.innerHTML = '<strong>Anteckningar:</strong>';
-        
+
         if (lesson.lessonNotes && lesson.lessonNotes.length > 0) {
             lesson.lessonNotes.forEach(note => {
                 const noteItem = document.createElement('li');
@@ -170,20 +173,14 @@ document.addEventListener("DOMContentLoaded", () => {
         subMenus.forEach(subMenu => subMenu.remove());
     };
 
-    const handleDirectLink = () => {
+    const handleDirectLink = (subject) => {
         const urlParams = new URLSearchParams(window.location.search);
         const directCourse = urlParams.get('course');
         const directChapter = urlParams.get('chapter');
         const directLessonId = urlParams.get('lesson');
 
         if (directCourse && directChapter) {
-            const courseData = courses[directCourse];
-            if (!courseData) {
-                console.error("Course not found:", directCourse);
-                return;
-            }
-
-            const path = `${basePath}${courseData.path}/${directChapter}.json`;
+            const path = `${basePath}${subject}/${directCourse}/${directChapter}.json`;
 
             loadLessons(path, container, (lessons) => {
                 if (!lessons) {
@@ -201,5 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    createMenu();
+    // Load courses for all subjects
+    ['Fysik', 'Matematik', 'AI'].forEach(loadSubjectCourses);
 });
