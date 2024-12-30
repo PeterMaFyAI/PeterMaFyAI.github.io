@@ -185,9 +185,6 @@ nav a:hover {
 }
 
 
-
-
-
 // Quiz Options
 .options {
     list-style: none;
@@ -200,14 +197,3 @@ nav a:hover {
     align-items: center;
     margin-bottom: 10px;
 }
-
-
-/*
-.options input[type="radio"] {
-    margin-right: 10px;
-}
-
-.hidden {
-    display: none;
-}
-*/
