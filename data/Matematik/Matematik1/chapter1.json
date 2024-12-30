@@ -11,7 +11,29 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/ErMSHiQRnc8" },
             { "type": "link", "url": "https://www.youtube.com/watch?v=24GfgNtnjXc" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vad är x om 2x + 3 = 7?",
+                    "options": [
+                        "2",
+                        "3",
+                        "4"
+                    ],
+                    "correctOption": 0
+                },
+                {
+                    "text": "Vilken av följande är en lösning till ekvationen x^2 - 4 = 0?",
+                    "options": [
+                        "x = 2",
+                        "x = -2",
+                        "Båda ovanstående"
+                    ],
+                    "correctOption": 2
+                }
+            ]
+        }
     },
     {
         "id": "lesson2",
@@ -25,6 +47,28 @@
         "resources": [
             { "type": "video", "url": "https://www.youtube.com/embed/Nog9auHaAy8?si=FTByCKpz3tnyYD0d" },
             { "type": "link", "url": "https://www.physicsclassroom.com/Concept-Builders/Work-and-Energy/Energy-Conservation" }
-        ]
+        ],
+        "quiz": {
+            "questions": [
+                {
+                    "text": "Vad är värdet av f(x) = 2x + 1 om x = 3?",
+                    "options": [
+                        "5",
+                        "7",
+                        "9"
+                    ],
+                    "correctOption": 1
+                },
+                {
+                    "text": "Vilken typ av funktion representeras av y = mx + b?",
+                    "options": [
+                        "Polynomfunktion",
+                        "Linjär funktion",
+                        "Exponentiell funktion"
+                    ],
+                    "correctOption": 1
+                }
+            ]
+        }
     }
 ]
