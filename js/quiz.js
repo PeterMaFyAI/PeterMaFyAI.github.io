@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Disable and update the button
-        submitButton.disabled = true;
+        //submitButton.disabled = true;
         submitButton.textContent = "Försök igen";
         submitButton.addEventListener("click", () => {
             renderQuiz(quiz); // Reset the quiz
